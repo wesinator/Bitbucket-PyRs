@@ -56,6 +56,6 @@ def create_pr(pr_title, source_branch, dest_branch, source_repo_name, dest_repo_
     return response
 
 
-# given pr response object, get URL link to PR in BB
 def get_pr_url(pr_response):
+    """given pr response object, get URL link to PR in BB"""
     return pr_response.links.get("html", {}).get("href", "")
