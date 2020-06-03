@@ -40,7 +40,7 @@ def get_repo(repo_project_path):
     return repo
 
 
-def create_pr(pr_title, source_branch, dest_branch, source_repo_name, dest_repo_name):
+def create_pr(pr_title, source_branch, dest_branch, source_repo_name, dest_repo_name, reviewers=[]):
     bitbucket = bitbucket_login()
 
     # https://github.com/wbrefvem/python-bitbucket/blob/b5002a97f0dd9d02dfc60f81b3a13d966abad9aa/tests/test_pullrequest.py#L222
@@ -49,7 +49,8 @@ def create_pr(pr_title, source_branch, dest_branch, source_repo_name, dest_repo_
             .add_source_branch_name(source_branch) \
             .add_source_repository_full_name(source_repo_name) \
             .add_destination_branch_name(dest_branch) \
-            .add_destination_repository_full_name(dest_repo_name)
+            .add_destination_repository_full_name(dest_repo_name) \
+            .add_reviewers_from_usernames(reviewers)
 
     response = PullRequest.create(pr_payload, client=bitbucket)
     return response
